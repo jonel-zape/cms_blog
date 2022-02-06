@@ -115,7 +115,7 @@ function renderNotFound()
 function jsonResponse($data, $terminate = false)
 {
     if ($terminate) {
-        renderJsonResponse($data);
+        //renderJsonResponse($data);
     }
 
     return $data;
