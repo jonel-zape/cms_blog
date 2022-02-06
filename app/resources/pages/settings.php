@@ -68,7 +68,7 @@
                 </button>
             </div>
         </div>
-        <h1>System Data</h1>
+        <!-- <h1>System Data</h1>
         <p>Clear Data</p>
         <p class="help-block">Clear all data except user accounts.</p>
         <p class="help-block">* This feature will remove after user acceptance testing</p>
@@ -85,7 +85,7 @@
                     Clear Data
                 </button>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-md-12 margin-bottom-15">
                 <hr/>
