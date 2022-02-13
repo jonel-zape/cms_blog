@@ -76,6 +76,13 @@ const list = {
                 width    : 110
             },
             {
+                title    : "Views",
+                field    : "views",
+                align    : "center",
+                formatter: "plaintext",
+                width    : 100
+            },
+            {
                 title    : "Summary",
                 field    : "summary",
                 formatter: "plaintext",

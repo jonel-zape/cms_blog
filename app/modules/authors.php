@@ -12,7 +12,8 @@ class Authors
         $detail = [
             'id' => 0,
             'full_name' => '',
-            'photo_url' => ''
+            'photo_url' => '',
+            'about' => ''
         ];
 
         view('authors/detail.php', $detail);
@@ -23,12 +24,14 @@ class Authors
         $request = escapeString([
             'id' => post('id'),
             'full_name' => post('full_name'),
-            'photo_url' => post('photo_url')
+            'photo_url' => post('photo_url'),
+            'about' => post('about')
         ]);
 
         $id = trim($request['id']);
         $fullName = trim($request['full_name']);
         $photoUrl = trim($request['photo_url']);
+        $about = trim($request['about']);
 
         $errors = [];
 
@@ -44,10 +47,12 @@ class Authors
             executeQuery(
                 'INSERT INTO `author` (
                     `full_name`,
+                    `about`,
                     '.cancelIfEmpty($photoUrl, '`photo_url`').',
                     `created_by`                    
                 ) VALUES (
                     \''.$fullName.'\',
+                    \''.$about.'\',
                     '.cancelIfEmpty($photoUrl, '\''.$photoUrl.'\',').'
                     1
                 )
@@ -60,6 +65,7 @@ class Authors
                 'UPDATE `author`
                 SET
                     `full_name` = \''.$fullName.'\',
+                    `about` = \''.$about.'\',
                     '.cancelIfEmpty($photoUrl, '`photo_url` = \''.$photoUrl.'\',').'
                     `updated_by` = 1,
                     `updated_at` = NOW()
@@ -80,7 +86,8 @@ class Authors
             SELECT
                 `id`,
                 `full_name`,
-                `photo_url`
+                `photo_url`,
+                `about`
             FROM `author`
             WHERE `id` = '.$id.'
         ');
@@ -93,7 +100,8 @@ class Authors
         $detail = [
             'id' => $data[0]['id'],
             'full_name' => $data[0]['full_name'],
-            'photo_url' => $data[0]['photo_url']
+            'photo_url' => $data[0]['photo_url'],
+            'about' => $data[0]['about']
         ];
 
         view('authors/detail.php', $detail);

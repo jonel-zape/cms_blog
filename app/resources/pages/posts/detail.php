@@ -16,6 +16,15 @@
                         </div>
                     </div>
                     <input type="hidden" id="id" value="<?php echo $moduleParameter['id']; ?>">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="badge" id="views">
+                                <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;<?php echo $moduleParameter['views']; ?>
+                            </span>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12 margin-bottom-15">
                             <h1>Post</h1>

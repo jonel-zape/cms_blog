@@ -1,3 +1,5 @@
+<script src="/js/lib/ckeditor/ckeditor.js"></script>
+
 <div class="templatemo-content-wrapper">
     <div class="templatemo-content">
         <ol class="breadcrumb">
@@ -20,7 +22,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 margin-bottom-15">
+                        <div class="col-md-12 margin-bottom-15">
                             <label for="full_name" class="control-label">Full Name</label>
                             <input
                                 type="text"
@@ -31,8 +33,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 margin-bottom-15">
-                            <label for="full_name" class="control-label">Photo</label>
+                        <div class="col-md-12 margin-bottom-15">
+                            <label for="content" class="control-label">About</label>
+                            <textarea name="about" id="about" rows="15" cols="80"><?php echo $moduleParameter['about']; ?></textarea>
+                            <script>
+                                CKEDITOR.config.height = 400
+                                CKEDITOR.replace('about')
+                            </script>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 margin-bottom-15">
+                            <label for="file_select" class="control-label">Photo</label>
                             <input
                                 type="file"
                                 class="form-control no-margin"

@@ -39,6 +39,7 @@ const detail = {
             {
                 id : el.val("#id"),
                 full_name : el.val("#full_name"),
+                about : CKEDITOR.instances.about.getData(),
                 photo_url: photoUrl
             }
         ).done(function(response){

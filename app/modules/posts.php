@@ -27,6 +27,7 @@ class Posts
             'is_published' => '',
             'date' => '',
             'is_featured' => '',
+            'views' => 0,
             'authors' => $authors
         ];
 
@@ -147,7 +148,8 @@ class Posts
                 `author_id`,
                 `is_published`,
                 `date`,
-                `is_featured`
+                `is_featured`,
+                `views`
             FROM `post`
             WHERE `id` = '.$id.'
         ');
@@ -175,6 +177,7 @@ class Posts
             'is_published' => $data[0]['is_published'],
             'date' => $data[0]['date'],
             'is_featured' => $data[0]['is_featured'],
+            'views' => $data[0]['views'],
             'authors' => $authors
         ];
 
@@ -201,7 +204,8 @@ class Posts
                 COALESCE(A.full_name) AS author,
                 IF (P.is_published = 1, \'Yes\', \'No\') AS is_published, 
                 P.date, 
-                IF (P.is_featured = 1, \'Yes\', \'No\') AS is_featured
+                IF (P.is_featured = 1, \'Yes\', \'No\') AS is_featured,
+                P.views
             FROM post AS P
             LEFT JOIN author AS A ON A.id = P.author_id
             WHERE 
