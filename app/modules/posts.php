@@ -84,6 +84,8 @@ class Posts
             return errorResponse($errors);
         }
 
+        $link = cleanString($title);
+
         if ($id == 0) {
             executeQuery(
                 'INSERT INTO `post` (
@@ -93,6 +95,7 @@ class Posts
                     `author_id`,
                     `is_published`,
                     `date`,
+                    `link`, 
                     `is_featured`,
                     '.cancelIfEmpty($coverPhotoUrl, '`cover_photo_url`,').'
                     `created_by`                    
@@ -103,6 +106,7 @@ class Posts
                     \''.$authorId.'\',
                     \''.$isPublished.'\',
                     \''.$date.'\',
+                    \''.$link.'\',
                     \''.$isFeatured.'\',
                     '.cancelIfEmpty($coverPhotoUrl, '\''.$coverPhotoUrl.'\',').'
                     1
@@ -121,6 +125,7 @@ class Posts
                     `author_id` = \''.$authorId.'\',
                     `is_published` = \''.$isPublished.'\',
                     `date` = \''.$date.'\',
+                    `link` = \''.$link.'\',
                     `is_featured` = \''.$isFeatured.'\',
                     '.cancelIfEmpty($coverPhotoUrl, '`cover_photo_url` = \''.$coverPhotoUrl.'\',').'
                     `updated_by` = 1,

@@ -212,3 +212,9 @@ function noCache()
 {
     echo '?no-cache='.systemVersion();
 }
+
+function cleanString($string) {
+    $string = str_replace(' ', '-', $string);
+
+    return strtolower(preg_replace('/[^A-Za-z0-9\-]/', '', $string));
+ }
