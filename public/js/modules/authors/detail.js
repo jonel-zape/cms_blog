@@ -39,6 +39,8 @@ const detail = {
             {
                 id : el.val("#id"),
                 full_name : el.val("#full_name"),
+                brief_introduction: el.val("#brief_introduction"),
+                is_main: el.checkbox.isChecked("#is_main") ? 1 : 0,
                 about : CKEDITOR.instances.about.getData(),
                 photo_url: photoUrl
             }

@@ -22,6 +22,17 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6 margin-bottom-15">
+                            <label class="checkbox-inline">
+                                <input
+                                    <?php echo $moduleParameter['is_main'] == "1" ? 'checked="true"' : ''; ?>
+                                    id="is_main"
+                                    type="checkbox"
+                                > Main Author
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12 margin-bottom-15">
                             <label for="full_name" class="control-label">Full Name</label>
                             <input
@@ -30,6 +41,12 @@
                                 id="full_name"
                                 value="<?php echo $moduleParameter['full_name']; ?>"
                             >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 margin-bottom-15">
+                            <label for="brief_introduction" class="control-label" maxlength="1000">Brief Introduction</label>
+                            <textarea class="form-control no-margin" rows="5" id="brief_introduction"><?php echo $moduleParameter['brief_introduction']; ?></textarea>
                         </div>
                     </div>
                     <div class="row">
