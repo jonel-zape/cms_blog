@@ -17,6 +17,14 @@ class Posts
             WHERE `deleted_at` IS NULL'
         );
 
+        $tags = getData(
+            'SELECT
+                T.`id`,
+                T.`name`,
+                0 AS `is_checked`
+            FROM `tag` AS T'
+        );
+
         $detail = [
             'id' => 0,
             'title' => '',
@@ -28,7 +36,8 @@ class Posts
             'date' => '',
             'is_featured' => '',
             'views' => 0,
-            'authors' => $authors
+            'authors' => $authors,
+            'tags' => $tags
         ];
 
         view('posts/detail.php', $detail);
@@ -45,7 +54,8 @@ class Posts
             'author_id' => post('author_id'),
             'is_published' => post('is_published'),
             'date' => post('date'),
-            'is_featured' => post('is_featured')
+            'is_featured' => post('is_featured'),
+            'tags' => post('tags'),
         ]);
 
         $id = trim($request['id']);
@@ -57,6 +67,9 @@ class Posts
         $isPublished = trim($request['is_published']);
         $date = trim($request['date']);
         $isFeatured = trim($request['is_featured']);
+        $tags = trim($request['tags']);
+
+        $tagsArray = explode(',', $tags);
 
         $errors = [];
 
@@ -134,6 +147,20 @@ class Posts
             );
         }
 
+        executeQuery('DELETE FROM post_tag WHERE post_id = '.$id);
+        if (count($tagsArray) > 0) {
+            $insertValues = [];
+            for ($i = 0; $i < count($tagsArray); $i++) {
+                if (trim($tagsArray[$i]) != '') {
+                    $insertValues[] = '("'.$id.'", "'.$tagsArray[$i].'")';
+                }
+            }
+            if (count($insertValues) > 0) {
+                $values = join(',', $insertValues);
+                executeQuery('INSERT INTO post_tag (post_id, tag_id) VALUES '.$values);
+            }
+        }
+
         return successfulResponse(['id' => $id]);
     }
 
@@ -172,6 +199,15 @@ class Posts
             WHERE `deleted_at` IS NULL'
         );
 
+        $tags = getData(
+            'SELECT
+                T.`id`,
+                T.`name`,
+                IF (PT.post_id IS NULL, 0, 1) AS `is_checked`
+            FROM `tag` AS T
+            LEFT JOIN post_tag AS PT ON PT.tag_id = T.id AND PT.post_id ='.$id
+        );
+
         $detail = [
             'id' => $data[0]['id'],
             'title' => $data[0]['title'],
@@ -183,10 +219,43 @@ class Posts
             'date' => $data[0]['date'],
             'is_featured' => $data[0]['is_featured'],
             'views' => $data[0]['views'],
-            'authors' => $authors
+            'authors' => $authors,
+            'tags' => $tags
         ];
 
         view('posts/detail.php', $detail);
+    }
+
+    public function addtag()
+    {
+        $request = escapeString([
+            'tag' => post('tag')
+        ]);
+
+        $tag = trim($request['tag']);
+
+        $errors = [];
+
+        if (strlen($tag) < 1) {
+            $errors[] = 'Please input tag name';
+        }
+
+        if (count($errors) > 0) {
+            return errorResponse($errors);
+        }
+
+        $check = getData("SELECT `id` FROM `tag` WHERE `name` = '".$tag."'");
+
+        if (count($check) > 0) {
+            $errors[] = 'Tag already exists';
+            return errorResponse($errors);
+        }
+
+        executeQuery("INSERT INTO tag(`name`) VALUES('".$tag."')");
+
+        $data = getData("SELECT `id`, `name` FROM `tag` WHERE `name` = '".$tag."'");
+
+        return successfulResponse($data[0]);
     }
 
     public function find()

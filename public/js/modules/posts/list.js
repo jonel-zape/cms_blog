@@ -83,7 +83,7 @@ const list = {
                 width    : 100
             },
             {
-                title    : "Summary",
+                title    : "Summary/Description",
                 field    : "summary",
                 formatter: "plaintext",
                 width    : 0

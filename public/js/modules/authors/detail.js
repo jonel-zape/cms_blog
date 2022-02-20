@@ -45,7 +45,6 @@ const detail = {
                 photo_url: photoUrl
             }
         ).done(function(response){
-            loading.hide()
             alert.success('Saved')
             setTimeout(function() {
                 window.location = `/authors/edit/${response.values.id}`

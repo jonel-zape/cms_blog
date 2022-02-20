@@ -23,6 +23,7 @@ addRoute('posts/edit/$', 'posts', REQUEST_PAGE);
 addRoute('posts/save', 'posts', REQUEST_JSON);
 addRoute('posts/find', 'posts', REQUEST_JSON);
 addRoute('posts/delete', 'posts', REQUEST_JSON);
+addRoute('posts/addtag', 'posts', REQUEST_JSON);
 
 addRoute('settings', 'settings', REQUEST_PAGE);
 addRoute('settings/loginAttempt', 'settings', REQUEST_JSON);

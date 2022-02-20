@@ -34,6 +34,13 @@ const detail = {
     },
 
     saveDetails(photoUrl = '') {
+        let tags = []
+        $(".checkbox_tag").each(function() {
+            if (el.checkbox.isChecked($(this))) {
+                tags.push($(this).attr('data_id'))
+            }
+        });
+
         http.post(
             '/posts/save',
             {
@@ -45,10 +52,10 @@ const detail = {
                 author_id: el.val("#author_id"),
                 is_published: el.checkbox.isChecked("#is_published") ? 1 : 0,
                 date: el.val("#date"),
-                is_featured: el.checkbox.isChecked("#is_featured") ? 1 : 0
+                is_featured: el.checkbox.isChecked("#is_featured") ? 1 : 0,
+                tags: tags.join(',')
             }
         ).done(function(response){
-            loading.hide()
             alert.success('Saved')
             setTimeout(function() {
                 window.location = `/posts/edit/${response.values.id}`
@@ -57,5 +64,32 @@ const detail = {
             alert.error(response.errors)
             loading.hide()
         })
+    },
+
+    addTag() {
+        loading.show()
+        http.post(
+            '/posts/addtag',
+            {
+                tag : el.val("#new-tag")
+            }
+        ).done(function(response){
+            loading.hide()
+            $("#new-tag").val("")
+            $("#tags-container").append(
+                `<div class="col-md-2 margin-bottom-15">
+                    <label class="checkbox-inline">
+                        <input class="checkbox_tag" type="checkbox" data_id="${response.values.id}"> ${response.values.name}
+                    </label>
+                </div>`
+            )
+        }).catch(function(response){
+            $("#add-tag-error").html(response.errors.join('<br>'))
+            loading.hide()
+        })
+    },
+
+    clearAdTagMessage() {
+        $("#add-tag-error").html('')
     }
 }

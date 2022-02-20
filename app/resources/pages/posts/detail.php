@@ -43,8 +43,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 margin-bottom-15">
-                            <label for="summary" class="control-label" maxlength="1000">Summary</label>
-                            <textarea class="form-control no-margin" rows="5" id="summary"><?php echo $moduleParameter['summary']; ?></textarea>
+                            <label for="summary" class="control-label" >Summary/Description</label>
+                            <textarea class="form-control no-margin" maxlength="1000" rows="5" id="summary"><?php echo $moduleParameter['summary']; ?></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -55,6 +55,51 @@
                                 CKEDITOR.config.height = 500
                                 CKEDITOR.replace('content')
                             </script>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 margin-bottom-15">
+                            <label for="summary" class="control-label">Tags</label>
+                            <div class="row" id="tags-container">
+                                <?php
+                                    for ($i = 0; $i < count($moduleParameter['tags']); $i++) {
+                                ?>
+                                <div class="col-md-2 margin-bottom-15">
+                                    <label class="checkbox-inline">
+                                        <input
+                                            class="checkbox_tag"
+                                            type="checkbox"
+                                            data_id="<?php echo $moduleParameter['tags'][$i]['id']; ?>"
+                                            <?php echo $moduleParameter['tags'][$i]['is_checked'] == "1" ? 'checked="true"' : ''; ?>
+                                        > <?php echo $moduleParameter['tags'][$i]['name']; ?>
+                                    </label>
+                                </div>
+                                <?php
+                                    }
+                                ?>
+                            </div>  
+                            <div class="row">
+                                <div class="col-md-12 margin-bottom-15">
+                                    <span style="color: red; font-size: 11px;" id="add-tag-error"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 margin-bottom-15">
+                                    <input
+                                        oninput="detail.clearAdTagMessage()"
+                                        id="new-tag"
+                                        placeholder="or Add a New Tag"
+                                        type="text"
+                                        class="form-control no-margin"
+                                    >
+                                </div>
+                                <div class="col-md-2 margin-bottom-15">
+                                    <button type="button" class="btn btn-primary form-control no-margin" onclick="detail.addTag()">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        Add Tag
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
