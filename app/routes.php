@@ -8,6 +8,11 @@ addRoute('auth/logout', 'auth', REQUEST_PAGE);
 
 addRoute('dashboard', 'dashboard', REQUEST_PAGE);
 
+addRoute('page', 'page', REQUEST_PAGE);
+addRoute('page/savedescription', 'page', REQUEST_JSON);
+addRoute('page/savesocialmedialinks', 'page', REQUEST_JSON);
+addRoute('page/savecustomlinks', 'page', REQUEST_JSON);
+
 addRoute('upload/image', 'upload', REQUEST_JSON);
 
 addRoute('authors', 'authors', REQUEST_PAGE);

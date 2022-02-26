@@ -58,6 +58,7 @@
             $parentModule = getSegment(1);
             $controlClass = [
                 'dashboard'=> '',
+                'page' => '',
                 'settings' => '',
                 'authors' => '',
                 'posts'  => ''
@@ -75,6 +76,13 @@
                         <a href="/dashboard">
                             <i class="fa fa-home nav-icon-custom"></i>
                             Dashboard
+                        </a>
+                    </li>
+
+                    <li class="<?php echo $controlClass['page'] ?>">
+                        <a href="/page">
+                            <i class="fa fa-list-alt nav-icon-custom"></i>
+                            Page
                         </a>
                     </li>
 
